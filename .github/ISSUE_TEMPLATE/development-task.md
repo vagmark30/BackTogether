@@ -11,7 +11,7 @@ assignees: ''
 A clear and concise description of what you will develop.
 
 **Is this related to Frontend or Backend**
-* <Enter here>
+* [Enter here]
 
 ## If you are going to develop this, assign yourself. 
 ## Label this accordingly
