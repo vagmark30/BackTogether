@@ -1,4 +1,13 @@
+using BackTogether.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<BackTogetherContext>(options =>
+    // WARNING!! This pulls the connection string from secrets.json file which is 
+    // stored in local machines and not pushed to the repo for safety
+    options.UseSqlServer(builder.Configuration.GetConnectionString("BackTogetherDatabase"))
+);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

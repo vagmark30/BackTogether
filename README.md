@@ -166,7 +166,9 @@ To get a local copy up and running follow these simple example steps.
     - [ ] Set the app on an Azure machine
     - [ ] Set up the databse on Azure
 
+
 See the [open issues](https://github.com/its-kos/BackTogether/issues) for a full list of proposed features (and known issues).
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -217,6 +219,7 @@ Evaggelos Markoulakis - [@github](https://github.com/vagmark30) - email@example.
 
 
 Project Link: [https://github.com/its-kos/BackTogether](https://github.com/its-kos/BackTogether)
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
