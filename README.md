@@ -36,7 +36,7 @@
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">-Project-name-here-</h3>
+  <h3 align="center">Back2Gether</h3>
 
   <p align="center">
     Just another Crowdfunding platform for people with ideas. 
