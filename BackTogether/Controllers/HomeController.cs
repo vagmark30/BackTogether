@@ -1,13 +1,17 @@
-﻿using BackTogether.Models;
+﻿using BackTogether.Data;
+using BackTogether.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace BackTogether.Controllers {
     public class HomeController : Controller {
         private readonly ILogger<HomeController> _logger;
+        private readonly BackTogetherContext _context;
 
-        public HomeController(ILogger<HomeController> logger) {
+        public HomeController(ILogger<HomeController> logger, BackTogetherContext context) {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index() {
@@ -15,6 +19,13 @@ namespace BackTogether.Controllers {
         }
 
         public IActionResult Privacy() {
+            var users = _context.Users.OrderBy(p => p.Username);
+            foreach (var user in users) { 
+                Console.WriteLine(user.Username);
+                Console.WriteLine(user.ImageURLId);
+                Console.WriteLine(user.BackedProjects);
+
+            }
             return View();
         }
 
