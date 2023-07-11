@@ -32,8 +32,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  <a href="https://github.com/its-kos/BackTogether/blob/main/back-together-logo.png">
+    <img src="https://github.com/its-kos/BackTogether/blob/main/back-together-logo.png" alt="Logo" width="640" height="480">
   </a>
 
   <h3 align="center">Back2Gether</h3>
@@ -48,9 +48,9 @@
     <br />
     <a href="">View Demo</a>
     ·
-    <a href="https://github.com/its-kos/Regeneration-Crowdfunding-Project/issues">Report Bug</a>
+    <a href="https://github.com/its-kos/BackTogether/issues">Report Bug</a>
     ·
-    <a href="https://github.com/its-kos/Regeneration-Crowdfunding-Project/issues">Request Feature</a>
+    <a href="https://github.com/its-kos/BackTogether/issues">Request Feature</a>
   </p>
 </div>
 
@@ -166,7 +166,9 @@ To get a local copy up and running follow these simple example steps.
     - [ ] Set the app on an Azure machine
     - [ ] Set up the databse on Azure
 
-See the [open issues](https://github.com/its-kos/Regeneration-Crowdfunding-Project/issues) for a full list of proposed features (and known issues).
+
+See the [open issues](https://github.com/its-kos/BackTogether/issues) for a full list of proposed features (and known issues).
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -216,7 +218,8 @@ Michail Raftopoulos - [@github](https://github.com/mihosraf) - email@example.com
 Evaggelos Markoulakis - [@github](https://github.com/vagmark30) - email@example.com
 
 
-Project Link: [https://github.com/its-kos/Regeneration-Crowdfunding-Project](https://github.com/its-kos/Regeneration-Crowdfunding-Project)
+Project Link: [https://github.com/its-kos/BackTogether](https://github.com/its-kos/BackTogether)
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -239,13 +242,13 @@ A list of resources we found helpful and would like to give credit to.
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/its-kos/Regeneration-Crowdfunding-Project/network/dependencies
+[contributors-url]: https://github.com/its-kos/BackTogether/network/dependencies
 [forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/its-kos/Regeneration-Crowdfunding-Project/network/members
+[forks-url]: https://github.com/its-kos/BackTogether/network/members
 [stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/its-kos/Regeneration-Crowdfunding-Project/stargazers
+[stars-url]: https://github.com/its-kos/BackTogether/stargazers
 [issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/its-kos/Regeneration-Crowdfunding-Project/issues
+[issues-url]: https://github.com/its-kos/BackTogether/issues
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555

@@ -12,20 +12,13 @@ namespace BackTogether.Controllers {
         public HomeController(ILogger<HomeController> logger, BackTogetherContext context) {
             _logger = logger;
             _context = context;
-        }
+
 
         public IActionResult Index() {
             return View();
         }
 
         public IActionResult Privacy() {
-            var users = _context.Users.OrderBy(p => p.Username);
-            foreach (var user in users) { 
-                Console.WriteLine(user.Username);
-                Console.WriteLine(user.ImageURLId);
-                Console.WriteLine(user.BackedProjects);
-
-            }
             return View();
         }
 
