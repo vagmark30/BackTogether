@@ -18,12 +18,11 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-![GitHub Repo stars](https://img.shields.io/github/stars/its-kos/BackTogether)
-![GitHub forks](https://img.shields.io/github/forks/its-kos/BackTogether)
-![GitHub contributors](https://img.shields.io/github/contributors/its-kos/BackTogether)
-![GitHub watchers](https://img.shields.io/github/watchers/its-kos/BackTogether?color=3399ff)
+![GitHub Repo stars](https://img.shields.io/github/stars/its-kos/BackTogether?color=FFDE5C)
+![GitHub forks](https://img.shields.io/github/forks/its-kos/BackTogether?color=065535)
+![GitHub contributors](https://img.shields.io/github/contributors/its-kos/BackTogether?color=2727FF)
+![GitHub watchers](https://img.shields.io/github/watchers/its-kos/BackTogether?color=C30B00)
 ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/its-kos/BackTogether/main)
-![Lines of code](https://img.shields.io/tokei/lines/github/its-kos/BackTogether)
 <!--[![MIT License][license-shield]][license-url]-->
 
 
