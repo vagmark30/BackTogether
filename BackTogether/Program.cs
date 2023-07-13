@@ -1,35 +1,44 @@
 using BackTogether.Data;
 using Microsoft.EntityFrameworkCore;
 
-var builder = WebApplication.CreateBuilder(args);
+internal class Program {
+    private static void Main(string[] args) {
+        var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<BackTogetherContext>(options =>
-    // WARNING!! This pulls the connection string from secrets.json file which is 
-    // stored in local machines and not pushed to the repo for safety
-    options.UseSqlServer(builder.Configuration.GetConnectionString("BackTogetherDatabase"))
-);
+        builder.Services.AddDbContext<BackTogetherContext>(options =>
+            // WARNING!! This pulls the connection string from secrets.json file which is 
+            // stored in local machines and not pushed to the repo for safety
+            options.UseSqlServer(builder.Configuration.GetConnectionString("BackTogetherDatabase"))
+        );
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+        builder.Services.AddSession(options => {
+            // Time out the session after 10 minutes
+            options.IdleTimeout = TimeSpan.FromMinutes(10);
+        });
 
-var app = builder.Build();
+        // Add services to the container.
+        builder.Services.AddControllersWithViews();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment()) {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+        var app = builder.Build();
+
+        // Configure the HTTP request pipeline.
+        if (!app.Environment.IsDevelopment()) {
+            app.UseExceptionHandler("/Home/Error");
+            // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+            app.UseHsts();
+        }
+
+        // Adding Middleware
+        app.UseSession();
+        app.UseHttpsRedirection();
+        app.UseStaticFiles();
+        app.UseRouting();
+        app.UseAuthorization();
+
+        app.MapControllerRoute(
+            name: "default",
+            pattern: "{controller=Home}/{action=Index}/{id?}");
+
+        app.Run();
+    }
 }
-
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-
-app.UseRouting();
-
-app.UseAuthorization();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-app.Run();

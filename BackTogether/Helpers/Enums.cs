@@ -1,4 +1,4 @@
-﻿namespace Enums {
+﻿namespace BackTogether.Helpers.Enums {
     public enum Categories {
         Art = 0,
         Literature,

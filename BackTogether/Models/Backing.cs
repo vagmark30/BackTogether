@@ -1,18 +1,27 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BackTogether.Models {
     public class Backing{
-        public string Id {
-            get => Id;
-            set {
-                Id = Guid.NewGuid().ToString();
-            }
-        }
-        public string UserId { get; set; }
+
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
+        [ForeignKey("User")]
+        public int UserId { get; set; }
         public User User { get; set; } = null!;
-        public string ProjectId { get; set; }
+
+        [ForeignKey("Project")]
+        public int ProjectId { get; set; }
         public Project Project { get; set; }= null!;
+
+        [DataType(DataType.Date)]
+        public DateTime DateBacked { get; set; }
+
         public decimal Amount { get; set; }
-        public ICollection<Reward> RewardsUnlocked { get; set; } = null!;
+
+        // Virtual to benefit from EF lazy loading functionality
+        public virtual ICollection<Reward> RewardsUnlocked { get; set; } = null!;
     }
 }
