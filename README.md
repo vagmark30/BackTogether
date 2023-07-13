@@ -22,8 +22,7 @@
 ![GitHub forks](https://img.shields.io/github/forks/its-kos/BackTogether)
 ![GitHub contributors](https://img.shields.io/github/contributors/its-kos/BackTogether)
 ![GitHub watchers](https://img.shields.io/github/watchers/its-kos/BackTogether?color=3399ff)
-![GitHub last commit (branch)](https://img.shields.io/github/last-commit/its-kos/BackTogether/frontend)
-![GitHub last commit (branch)](https://img.shields.io/github/last-commit/its-kos/BackTogether/backend)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/its-kos/BackTogether/main)
 ![Lines of code](https://img.shields.io/tokei/lines/github/its-kos/BackTogether)
 <!--[![MIT License][license-shield]][license-url]-->
 
