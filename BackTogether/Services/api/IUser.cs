@@ -2,12 +2,10 @@
 
 namespace BackTogether.Services.api {
     public interface IUser {
-        Boolean CheckUserValidation();
         Task<User> CreateUser(User user);
-        Boolean RegisterUser();
-        Boolean UpdateUser();
-        Boolean DeleteUser();
+        User? UpdateUser(int id);
+        Task<bool> DeleteUser(int id);
         User? GetUser(int id);
-        Boolean GetAllUsers();
+        Task<List<User>> GetAllUsers();
     }
 }

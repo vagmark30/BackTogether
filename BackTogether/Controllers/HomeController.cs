@@ -10,11 +10,9 @@ namespace BackTogether.Controllers {
     public class HomeController : Controller {
 
         private readonly ILogger<HomeController> _logger;
-        private readonly BackTogetherContext _context;
 
-        public HomeController(ILogger<HomeController> logger, BackTogetherContext context) {
+        public HomeController(ILogger<HomeController> logger) {
             _logger = logger;
-            _context = context;
         }
 
         public IActionResult Index() {
