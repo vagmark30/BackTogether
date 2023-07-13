@@ -29,6 +29,10 @@ namespace BackTogether.Services {
             }
         }
 
+        public List<Project> GetAllProjects(int amount) {
+            return _context.Projects.Include(p => p.User).Include(p => p.ImageURLS).Include(p => p.Rewards).Take(amount).ToList();
+        }
+
         public Project? GetProject(int id) {
             if (id < 0) {
                 return null;

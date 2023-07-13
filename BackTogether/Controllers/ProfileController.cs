@@ -26,69 +26,23 @@ namespace BackTogether.Controllers {
         // * If yes -> Show profile
         // * If no -> redirect to login
         [HttpGet]
-        public IActionResult Index() {
+        public IActionResult Index(int id) {
             // Show profile page
             // Get all relevant data here using the Service
-            _userService.GetUser(5);
+            _userService.GetUser(id);
             return View();
         }
 
-        // GET: Login
-        // We have to check if user is already logged in in this session (Chesk using session),
-        // * If yes -> Redirect to Index
-        // * If no -> Redirect to login
         [HttpGet]
-        public IActionResult Login() {
-            // Show Login Form
+        public IActionResult Backed() {
+            // Get all projects backed by user with this ID
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Login(string username, string password) {
-
-            var uID = _loginService.AuthenticateUser(username, password);
-
-            if (uID != -1) {
-                // Success Login
-                // Update Session Info
-                // Redirect to index
-                var isAdmin = _loginService.AuthenticateAdmin(uID);
-                if (isAdmin) {
-                    // Update session info
-                    // Enable Admin functionality
-                }
-                return RedirectToAction("Index");
-            } else {
-                // Wrong Credentials 
-                // Display appropriate message
-                // Redirect to Login
-                return RedirectToAction();
-            }
-        }
-
-        // GET: Profile/Register
-        // We have to check if user is already logged in in this session (Chesk using session),
-        // * If yes -> Redirect to Index
-        // * If no -> Redirect to Login
         [HttpGet]
-        public IActionResult Register() {
-            // Show the Register Form
+        public IActionResult Projects() {
+            // Get all projects created by user with this ID
             return View();
-        }
-
-        // POST: Profile/Register
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register([Bind("Id, FullName, Username, Password, Email, ImageURLId, HasAdminPrivileges")] User user) {
-            if (ModelState.IsValid) {
-               var u = await _userService.CreateUser(user);
-            }
-            // Setup session info while the user is created asynchronously
-            // Using the `u` var
-
-            return RedirectToAction("Index");
         }
 
         // GET: Admin

@@ -18,12 +18,17 @@ namespace BackTogether.Controllers {
         }
 
         // GET: Project
-        public IActionResult Index() {
-            return RedirectToAction("Create");
+        // (Optionally) GET: Project/{amount}
+        public IActionResult Index(int amount = 100) {
+            // Show 100 per page
+            // Change this to show more
+            _projectService.GetAllProjects(amount);
+            return View();
         }
 
-        // GET: Project/{id}
-        public IActionResult Index(int id) {
+        // GET: Project/id/{id}
+        [HttpGet]
+        public IActionResult Id(int id) {
             Project? project = _projectService.GetProject(id);
             if (project == null) {
                 return View("Error");

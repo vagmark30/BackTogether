@@ -6,5 +6,6 @@ namespace BackTogether.Services.api {
         Project? GetProject(int id);
         Task<bool> DeleteProject(int id);
         Task<Project> UpdateProject(int id);
+        List<Project> GetAllProjects(int amount);
     }
 }

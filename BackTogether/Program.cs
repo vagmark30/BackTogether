@@ -1,4 +1,6 @@
 using BackTogether.Data;
+using BackTogether.Services;
+using BackTogether.Services.api;
 using Microsoft.EntityFrameworkCore;
 
 internal class Program {
@@ -18,6 +20,9 @@ internal class Program {
 
         // Add services to the container.
         builder.Services.AddControllersWithViews();
+        builder.Services.AddScoped<ILogin, LoginService>();
+        builder.Services.AddScoped<IUser, UserService>();
+        builder.Services.AddScoped<IProject, ProjectService>();
 
         var app = builder.Build();
 
