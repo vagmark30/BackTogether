@@ -18,13 +18,13 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-![GitHub Repo stars](https://img.shields.io/github/stars/its-kos/Regeneration-Crowdfunding-Project)
-![GitHub forks](https://img.shields.io/github/forks/its-kos/Regeneration-Crowdfunding-Project)
-![GitHub contributors](https://img.shields.io/github/contributors/its-kos/Regeneration-Crowdfunding-Project)
-![GitHub watchers](https://img.shields.io/github/watchers/its-kos/Regeneration-Crowdfunding-Project?color=3399ff)
-![GitHub last commit (branch)](https://img.shields.io/github/last-commit/its-kos/Regeneration-Crowdfunding-Project/frontend)
-![GitHub last commit (branch)](https://img.shields.io/github/last-commit/its-kos/Regeneration-Crowdfunding-Project/backend)
-![Lines of code](https://img.shields.io/tokei/lines/github/its-kos/Regeneration-Crowdfunding-Project)
+![GitHub Repo stars](https://img.shields.io/github/stars/its-kos/BackTogether)
+![GitHub forks](https://img.shields.io/github/forks/its-kos/BackTogether)
+![GitHub contributors](https://img.shields.io/github/contributors/its-kos/BackTogether)
+![GitHub watchers](https://img.shields.io/github/watchers/its-kos/BackTogether?color=3399ff)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/its-kos/BackTogether/frontend)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/its-kos/BackTogether/backend)
+![Lines of code](https://img.shields.io/tokei/lines/github/its-kos/BackTogether)
 <!--[![MIT License][license-shield]][license-url]-->
 
 
