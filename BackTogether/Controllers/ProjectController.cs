@@ -11,30 +11,30 @@ using BackTogether.Services.api;
 
 namespace BackTogether.Controllers {
     public class ProjectController : Controller {
-        private readonly IProject _projectService;
+        private readonly IDatabase _dbService;
 
-        public ProjectController(IProject projectService) {
-            _projectService = projectService;
+        public ProjectController(IDatabase dbService) {
+            _dbService = dbService;
         }
 
         // GET: Project
         // (Optionally) GET: Project/{amount}
+        // QOL update - Enable sorting functionality
         public IActionResult Index(int amount = 100) {
             // Show 100 per page
             // Change this to show more
-            _projectService.GetAllProjects(amount);
-            return View();
+            return View(_dbService.GetAllProjects(amount));
         }
 
         // GET: Project/id/{id}
         [HttpGet]
         public IActionResult Id(int id) {
-            Project? project = _projectService.GetProject(id);
+            Project? project = _dbService.GetProjectById(id);
             if (project == null) {
                 return View("Error");
             } else {
                 // Show project page here
-                return View();
+                return View(project);
             }
         }
 
@@ -55,7 +55,7 @@ namespace BackTogether.Controllers {
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("Id,Title,Description,Category,UserId,CurrentFunding,FinalGoal,DateCreated")] Project project) {
             if (ModelState.IsValid) {
-                _projectService.CreateProject(project);
+                _dbService.CreateProject(project);
             }
             return View(nameof(Index));
         }

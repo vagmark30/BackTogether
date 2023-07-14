@@ -14,11 +14,11 @@ namespace BackTogether.Controllers {
     public class ProfileController : Controller {
 
         private readonly ILogin _loginService;
-        private readonly IUser _userService;
+        private readonly IDatabase _dbService;
 
-        public ProfileController(ILogin loginService, IUser userService) {
+        public ProfileController(ILogin loginService, IDatabase dbService) {
             _loginService = loginService;
-            _userService = userService;
+            _dbService = dbService;
         }
 
         // GET: Profile
@@ -29,20 +29,19 @@ namespace BackTogether.Controllers {
         public IActionResult Index(int id) {
             // Show profile page
             // Get all relevant data here using the Service
-            _userService.GetUser(id);
-            return View();
+            return View(_dbService.GetUserById(id));
         }
 
         [HttpGet]
-        public IActionResult Backed() {
+        public IActionResult Backed(int id) {
             // Get all projects backed by user with this ID
-            return View();
+            return View(_dbService.GetBackedProjectsByUserId(id));
         }
 
         [HttpGet]
-        public IActionResult Projects() {
+        public IActionResult Projects(int id) {
             // Get all projects created by user with this ID
-            return View();
+            return View(_dbService.GetCreatedProjectsByUserId(id));
         }
 
         // GET: Admin

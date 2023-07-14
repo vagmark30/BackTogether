@@ -37,7 +37,7 @@ namespace BackTogether.Services {
             return user.Id;
         }
 
-        public User GetUser(int id) {
+        private User GetUser(int id) {
             var user = _context.Users.FirstOrDefaultAsync(user => user.Id == id).Result;
             if (user == null) {
                 throw new KeyNotFoundException();

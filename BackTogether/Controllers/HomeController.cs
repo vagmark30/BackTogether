@@ -12,13 +12,13 @@ namespace BackTogether.Controllers {
     public class HomeController : Controller {
 
         private readonly ILogger<HomeController> _logger;
-        private readonly IUser _userService;
         private readonly ILogin _loginService;
+        private readonly IDatabase _dbService;
 
-        public HomeController(ILogger<HomeController> logger, IUser userService, ILogin loginService) {
+        public HomeController(ILogger<HomeController> logger, ILogin loginService, IDatabase dbService) {
             _logger = logger;
-            _userService = userService;
             _loginService = loginService;
+            _dbService = dbService;
         }
 
         public IActionResult Index() {
@@ -53,22 +53,23 @@ namespace BackTogether.Controllers {
 
             var uID = _loginService.AuthenticateUser(username, password);
 
-            if (uID != -1) {
-                // Success Login
-                // Update Session Info
-                // Redirect to index
-                var isAdmin = _loginService.AuthenticateAdmin(uID);
-                if (isAdmin) {
-                    // Update session info
-                    // Enable Admin functionality
-                }
-                return RedirectToAction("Index",  "Profile", new { id = uID });
-            } else {
+            if (uID == -1) {
                 // Wrong Credentials 
                 // Display appropriate message
                 // Redirect to Login
-                return RedirectToAction();
+                Problem("Wrong credentials / User doesnt exist");
+                return RedirectToAction("Login");
             }
+
+            // Success Login
+            // Update Session Info
+            // Redirect to index
+            var isAdmin = _loginService.AuthenticateAdmin(uID);
+            if (isAdmin) {
+                // Update session info
+                // Enable Admin functionality
+            }
+            return RedirectToAction("Index", "Profile", new { id = uID });
         }
 
         // GET: Home/Register
@@ -88,12 +89,12 @@ namespace BackTogether.Controllers {
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register([Bind("Id, FullName, Username, Password, Email, ImageURLId, HasAdminPrivileges")] User user) {
             if (ModelState.IsValid) {
-                var u = await _userService.CreateUser(user);
+                var u = await _dbService.CreateUser(user);
             }
             // Setup session info while the user is created asynchronously
             // Using the `u` var
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
