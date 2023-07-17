@@ -33,7 +33,7 @@ namespace BackTogether.Services {
          */
 
                     // Users //
-        public User? GetUserById(int id) {
+        public User? GetUserById(int? id) {
             var user = _context.Users.Include(u => u.ImageURL).FirstOrDefault(m => m.Id == id);
             if (user == null) {
                 return null;

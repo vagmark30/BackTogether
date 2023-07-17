@@ -21,7 +21,7 @@ namespace BackTogether.Services.api {
          */
 
                     // Users //
-        public User? GetUserById(int id);
+        public User? GetUserById(int? id);
         public User? GetUserByProjectId(int projectId);
         public List<User> GetAllUsers();
 
