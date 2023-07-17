@@ -1,12 +1,10 @@
-﻿namespace BackTogether.Models {
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace BackTogether.Models {
     public class ResourceURL {
-        public string Id {
-            get => Id;
-            set {
-                Id = Guid.NewGuid().ToString();
-            }
-        }
+        public int Id { get; set; }
         public string Url { get; set; }
-        public Enums.Resource type { get; set; }
+        public Helpers.Enums.Resource Type { get; set; }
     }
 }
