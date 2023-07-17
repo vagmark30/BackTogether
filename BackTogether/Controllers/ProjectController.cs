@@ -56,8 +56,8 @@ namespace BackTogether.Controllers {
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,Title,Description,Category,UserId,CurrentFunding,FinalGoal,DateCreated")] Project project) {
-            // if
+        // See here: https://stackoverflow.com/questions/73734515/binding-complex-entities-inside-complex-entities-to-requests/73737722#73737722
+        public IActionResult Create([Bind("Id,Title,Description,Category,UserId,DateCreated,CurrentFunding,FinalGoal")] Project project) {
             if (ModelState.IsValid) {
                 _dbService.CreateProject(project);
             }

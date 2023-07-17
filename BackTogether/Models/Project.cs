@@ -13,9 +13,9 @@ namespace BackTogether.Models {
         public Helpers.Enums.Categories? Category { get; set; }
 
         public int UserId { get; set; }
-        public User User { get; set; } = null!;
+        public User User { get; set; }
 
-        public ICollection<Backing> Backings { get; set; } = null!;
+        public ICollection<Backing>? Backings { get; set; } = null!;
 
 
         [DataType(DataType.Date)]

@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace BackTogether.Migrations
 {
     /// <inheritdoc />
@@ -115,6 +117,21 @@ namespace BackTogether.Migrations
                         column: x => x.ImageURLId,
                         principalTable: "ResourceURL",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Email", "FullName", "HasAdminPrivileges", "ImageURLId", "Password", "Username" },
+                values: new object[,]
+                {
+                    { 1, "example@email.com", null, true, null, "NZ#7eYB%", "aFEf4w4f" },
+                    { 2, "example1@email.com", null, true, null, "6*%7rKNd", "fa4gfwff" },
+                    { 3, "example2@email.com", null, false, null, "K^aB%s6T", "tejh56eu" },
+                    { 4, "example3@email.com", null, false, null, "Fg75^U@j", "f34g34qg" },
+                    { 5, "example4@email.com", null, false, null, "#VEGu3it", "fq34gqgf" },
+                    { 6, "example5@email.com", null, false, null, "Cnk@XH23", "qf34gq3g" },
+                    { 7, "example6@email.com", null, true, null, "HpKY6N%X", "f34qg4q3" },
+                    { 8, "example7@email.com", null, false, null, "P6@%R6%a", "n4eh6wqw" }
                 });
 
             migrationBuilder.CreateIndex(

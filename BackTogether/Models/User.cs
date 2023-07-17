@@ -12,10 +12,10 @@ namespace BackTogether.Models {
         public string Username { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
-        public ICollection<Project> Projects { get; } = new List<Project>();
-        public ICollection<Backing> Backings { get; } = new List<Backing>();
+        public ICollection<Project>? Projects { get; } = new List<Project>();
+        public ICollection<Backing>? Backings { get; } = new List<Backing>();
         public int? ImageURLId { get; set; }
         public ResourceURL? ImageURL { get; set; }
-        public Boolean HasAdminPrivileges { get; set; }
+        public bool HasAdminPrivileges { get; set; }
     }
 }

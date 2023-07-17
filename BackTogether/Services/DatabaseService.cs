@@ -54,12 +54,12 @@ namespace BackTogether.Services {
             return user;
         }
         public List<User> GetAllUsers() {
-            return _context.Users.ToList();
+            return _context.Users.Include(u => u.ImageURL).ToList();
         }
 
                     // Projects //
         public Project? GetProjectById(int id) {
-            var project = _context.Projects.FirstOrDefault(m => m.Id == id);
+            var project = _context.Projects.Include(u => u.User).FirstOrDefault(m => m.Id == id);
             if (project == null) {
                 return null;
             }
@@ -67,7 +67,7 @@ namespace BackTogether.Services {
         }
         // Get all projects created by User
         public List<Project>? GetCreatedProjectsByUserId(int userId) {
-            var projects = (from n in _context.Projects
+            var projects = (from n in _context.Projects.Include(u => u.User)
                             where n.UserId == userId
                             select n).ToList();
             if (projects == null) {
@@ -76,7 +76,7 @@ namespace BackTogether.Services {
             return projects;
         }
         public List<Project>? GetBackedProjectsByUserId(int userId) {
-            var projects = (from n in _context.Projects
+            var projects = (from n in _context.Projects.Include(u => u.User)
                             where _context.Backings.Where(b => b.UserId == userId).Select(b => b.ProjectId).ToList().Contains(n.Id)
                             select n).ToList();
             if (projects == null) {
@@ -86,7 +86,7 @@ namespace BackTogether.Services {
         }
         public List<Project> GetAllProjects(int amount) {
             // Sorting by date created by default
-            var projects = _context.Projects.OrderBy(n => n.DateCreated).Take(amount).ToList();
+            var projects = _context.Projects.Include(u => u.User).OrderBy(n => n.DateCreated).Take(amount).ToList();
             return projects;
         }
 

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackTogether.Migrations
 {
     [DbContext(typeof(BackTogetherContext))]
-    [Migration("20230717113730_InitialCreate")]
+    [Migration("20230717120226_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -183,6 +183,72 @@ namespace BackTogether.Migrations
                     b.HasIndex("ImageURLId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "example@email.com",
+                            HasAdminPrivileges = true,
+                            Password = "NZ#7eYB%",
+                            Username = "aFEf4w4f"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Email = "example1@email.com",
+                            HasAdminPrivileges = true,
+                            Password = "6*%7rKNd",
+                            Username = "fa4gfwff"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Email = "example2@email.com",
+                            HasAdminPrivileges = false,
+                            Password = "K^aB%s6T",
+                            Username = "tejh56eu"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Email = "example3@email.com",
+                            HasAdminPrivileges = false,
+                            Password = "Fg75^U@j",
+                            Username = "f34g34qg"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Email = "example4@email.com",
+                            HasAdminPrivileges = false,
+                            Password = "#VEGu3it",
+                            Username = "fq34gqgf"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Email = "example5@email.com",
+                            HasAdminPrivileges = false,
+                            Password = "Cnk@XH23",
+                            Username = "qf34gq3g"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Email = "example6@email.com",
+                            HasAdminPrivileges = true,
+                            Password = "HpKY6N%X",
+                            Username = "f34qg4q3"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Email = "example7@email.com",
+                            HasAdminPrivileges = false,
+                            Password = "P6@%R6%a",
+                            Username = "n4eh6wqw"
+                        });
                 });
 
             modelBuilder.Entity("BackTogether.Models.Backing", b =>
