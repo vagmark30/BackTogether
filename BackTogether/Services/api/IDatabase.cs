@@ -1,17 +1,20 @@
 ﻿using BackTogether.Models;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace BackTogether.Services.api {
     public interface IDatabase {
+
+        //public bool IsAvailable();
 
         /*  
          *  Create 
          */
 
                     // Users //
-        public Task<User> CreateUser(User user);
+        public int CreateUser(User user);
                     // Projects //
-        public Task<Project> CreateProject(Project project);
+        public int CreateProject(Project project);
 
         /*  
          *  Read 
@@ -20,14 +23,14 @@ namespace BackTogether.Services.api {
                     // Users //
         public User? GetUserById(int id);
         public User? GetUserByProjectId(int projectId);
-        public Task<List<User>> GetAllUsers();
+        public List<User> GetAllUsers();
 
                     // Projects //
-        public Project GetProjectById(int id);
+        public Project? GetProjectById(int id);
         public List<Project>? GetCreatedProjectsByUserId(int userId);
         public List<Project>? GetBackedProjectsByUserId(int userId);
 
-        public Task<List<Project>> GetAllProjects(int amount);
+        public List<Project> GetAllProjects(int amount);
 
         /* 
          * Update 
@@ -43,8 +46,8 @@ namespace BackTogether.Services.api {
          */
 
                     // Users //
-        public Task<bool> DeleteUser(int id);
+        public bool DeleteUser(int id);
                     // Projects //
-        public Task<bool> DeleteProject(int id);
+        public bool DeleteProject(int id);
     }
 }

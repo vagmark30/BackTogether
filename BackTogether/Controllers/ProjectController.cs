@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BackTogether.Data;
 using BackTogether.Models;
 using BackTogether.Services.api;
+using BackTogether.Helpers.Enums;
 
 namespace BackTogether.Controllers {
     public class ProjectController : Controller {
@@ -23,7 +24,9 @@ namespace BackTogether.Controllers {
         public IActionResult Index(int amount = 100) {
             // Show 100 per page
             // Change this to show more
-            return View(_dbService.GetAllProjects(amount));
+            ViewData["projects"] = _dbService.GetAllProjects(amount);
+            Console.WriteLine("[DEBUG LOG]: " + ViewData["projects"]);
+            return View();
         }
 
         // GET: Project/id/{id}
@@ -44,7 +47,7 @@ namespace BackTogether.Controllers {
         // * If no -> redirect to login
         [HttpGet]
         public IActionResult Create() {
-            // Show project creation page here
+            ViewBag.selectCategory = Enum.GetValues(typeof(Categories)).Cast<Categories>();
             return View();
         }
 
@@ -54,10 +57,12 @@ namespace BackTogether.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("Id,Title,Description,Category,UserId,CurrentFunding,FinalGoal,DateCreated")] Project project) {
+            // if
             if (ModelState.IsValid) {
                 _dbService.CreateProject(project);
             }
-            return View(nameof(Index));
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
+            return RedirectToAction("Index");
         }
     }
 }

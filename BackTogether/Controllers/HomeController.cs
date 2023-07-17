@@ -87,9 +87,9 @@ namespace BackTogether.Controllers {
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register([Bind("Id, FullName, Username, Password, Email, ImageURLId, HasAdminPrivileges")] User user) {
+        public IActionResult Register([Bind("Id, FullName, Username, Password, Email, ImageURLId, HasAdminPrivileges")] User user) {
             if (ModelState.IsValid) {
-                var u = await _dbService.CreateUser(user);
+                var u = _dbService.CreateUser(user);
             }
             // Setup session info while the user is created asynchronously
             // Using the `u` var

@@ -2,7 +2,9 @@
 using BackTogether.Models;
 using BackTogether.Services.api;
 using Humanizer;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System.Data.Common;
 using System.Linq;
 
 namespace BackTogether.Services {
@@ -14,22 +16,16 @@ namespace BackTogether.Services {
             _context = context;
         }
 
-        /*  
-         *  Create 
-         */
-
-                    // Users //
-        public async Task<User> CreateUser(User user) {
+            // Users //
+        public int CreateUser(User user) {
             _context.Add(user);
-            await _context.SaveChangesAsync();
-            return user;
+            return _context.SaveChanges();
         }
 
                     // Projects //
-        public async Task<Project> CreateProject(Project project) {
+        public int CreateProject(Project project) {
             _context.Add(project);
-            await _context.SaveChangesAsync();
-            return project;
+            return _context.SaveChanges();
         }
 
         /*  
@@ -38,7 +34,7 @@ namespace BackTogether.Services {
 
                     // Users //
         public User? GetUserById(int id) {
-            var user = _context.Users.Include(u => u.ImageURL).FirstOrDefaultAsync(m => m.Id == id).Result;
+            var user = _context.Users.Include(u => u.ImageURL).FirstOrDefault(m => m.Id == id);
             if (user == null) {
                 return null;
             }
@@ -47,33 +43,33 @@ namespace BackTogether.Services {
         // Get creator of Project
         public User? GetUserByProjectId(int projectId) {
             var userId = (from n in _context.Projects
-                       where n.Id == projectId
-                       select n.UserId).Single();
+                          where n.Id == projectId
+                          select n.UserId).Single();
 
-            var user = (from n in _context.Users
-                            where n.Id == userId
-                            select n).Single();
-
+            var user = GetUserById(userId);
             if (user == null) {
                 return null;
             }
+
             return user;
         }
-        public async Task<List<User>> GetAllUsers() {
-            var users = await _context.Users.ToListAsync();
-            return users;
+        public List<User> GetAllUsers() {
+            return _context.Users.ToList();
         }
 
                     // Projects //
-        public Project GetProjectById(int id) {
-            throw new NotImplementedException();
+        public Project? GetProjectById(int id) {
+            var project = _context.Projects.FirstOrDefault(m => m.Id == id);
+            if (project == null) {
+                return null;
+            }
+            return project;
         }
         // Get all projects created by User
         public List<Project>? GetCreatedProjectsByUserId(int userId) {
             var projects = (from n in _context.Projects
                             where n.UserId == userId
                             select n).ToList();
-
             if (projects == null) {
                 return null;
             }
@@ -81,20 +77,18 @@ namespace BackTogether.Services {
         }
         public List<Project>? GetBackedProjectsByUserId(int userId) {
             var projects = (from n in _context.Projects
-                            where _context.Backings.Where(b => b.UserId == userId).Select(b => b.UserId).ToList().Contains(n.Id)
+                            where _context.Backings.Where(b => b.UserId == userId).Select(b => b.ProjectId).ToList().Contains(n.Id)
                             select n).ToList();
-
             if (projects == null) {
                 return null;
             }
             return projects;
         }
-        public async Task<List<Project>> GetAllProjects(int amount) {
+        public List<Project> GetAllProjects(int amount) {
             // Sorting by date created by default
-            var projects = await _context.Projects.OrderByDescending(p => p.DateCreated).Take(amount).ToListAsync();
+            var projects = _context.Projects.OrderBy(n => n.DateCreated).Take(amount).ToList();
             return projects;
         }
-
 
 
         /* 
@@ -115,24 +109,24 @@ namespace BackTogether.Services {
          */
 
                     // Users //
-        public async Task<bool> DeleteUser(int id) {
+        public bool DeleteUser(int id) {
             var userToDelete = GetUserById(id);
             if (userToDelete == null) {
                 return false;
             } else {
                 _context.Users.Remove(userToDelete);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
                 return true;
             }
         }
                     // Projects //
-        public async Task<bool> DeleteProject(int id) {
+        public bool DeleteProject(int id) {
             var projectToDelete = GetProjectById(id);
             if (projectToDelete == null) {
                 return false;
             } else {
                 _context.Projects.Remove(projectToDelete);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
                 return true;
             }
         }
