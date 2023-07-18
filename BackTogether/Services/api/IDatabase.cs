@@ -22,6 +22,9 @@ namespace BackTogether.Services.api {
 
                     // Users //
         public User? GetUserById(int? id);
+        private ResourceURL? GetResourceUrlById(int id) {
+            throw new NotImplementedException();
+        }
         public User? GetUserByProjectId(int projectId);
         public List<User> GetAllUsers();
 

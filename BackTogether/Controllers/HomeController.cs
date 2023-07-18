@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BackTogether.Controllers {
     public class HomeController : Controller {
@@ -22,20 +23,30 @@ namespace BackTogether.Controllers {
         }
 
         public IActionResult Index() {
-            // Show Home page
-            // One button "Home"
-            // One button "Profile"
-            // One button "Projects"
-            // One button "Create"
+            if (HttpContext.Session.GetString("SessionUserId") != null) {
+                //If you get here α user is logged in
+                return View();
+            }
             return View();
         }
 
         public IActionResult Profile() {
+            if (HttpContext.Session.GetString("SessionUserId") != null) {
+                //If you get here α user is logged in
+                return RedirectToAction("Index", "Profile");
+            }
             return RedirectToAction("Login");
         }
 
+        // We have to check if user is already logged in in this session (Chesk using session),
+        // * If yes -> Redirect to Create
+        // * If no -> Redirect to login
         public IActionResult Create() {
-            return RedirectToAction("Create", "Project");
+            if (HttpContext.Session.GetString("SessionUserId") != null) {
+                //If you get here α user is logged in
+                return RedirectToAction("Create", "Project", new { id = HttpContext.Session.GetInt32("SessionUserId") });
+            }
+            return RedirectToAction("Login");
         }
 
         // GET: Login
@@ -63,13 +74,16 @@ namespace BackTogether.Controllers {
 
             // Success Login
             // Update Session Info
-            // Redirect to index
+            HttpContext.Session.SetInt32("SessionUserId", uID);
+            HttpContext.Session.SetInt32("SessionUserAdminRights", 0);
+
             var isAdmin = _loginService.AuthenticateAdmin(uID);
             if (isAdmin) {
                 // Update session info
+                HttpContext.Session.SetInt32("SessionUserAdminRights", 1);
                 // Enable Admin functionality
             }
-            return RedirectToAction("Index", "Profile", new { id = uID });
+            return RedirectToAction("Index", "Profile");
         }
 
         // GET: Home/Register
@@ -79,6 +93,10 @@ namespace BackTogether.Controllers {
         [HttpGet]
         public IActionResult Register() {
             // Show the Register Form
+            if (HttpContext.Session.GetString("SessionUserId") != null) {
+                //If you get here α user is logged in
+                return RedirectToAction("Index");
+            }
             return View();
         }
 
@@ -89,11 +107,11 @@ namespace BackTogether.Controllers {
         [ValidateAntiForgeryToken]
         public IActionResult Register([Bind("Id, FullName, Username, Password, Email, ImageURLId, HasAdminPrivileges")] User user) {
             if (ModelState.IsValid) {
-                var u = _dbService.CreateUser(user);
+                _dbService.CreateUser(user);
             }
-            // Setup session info while the user is created asynchronously
-            // Using the `u` var
-
+            // Setup session info while the user is created
+            HttpContext.Session.SetInt32("SessionUserId", user.Id);
+            HttpContext.Session.SetInt32("SessionUserAdminRights", user.HasAdminPrivileges ? 1 : 0);
             return RedirectToAction("Index");
         }
 

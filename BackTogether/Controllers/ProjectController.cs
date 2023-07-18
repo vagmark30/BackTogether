@@ -24,9 +24,8 @@ namespace BackTogether.Controllers {
         public IActionResult Index(int amount = 100) {
             // Show 100 per page
             // Change this to show more
-            ViewData["projects"] = _dbService.GetAllProjects(amount);
-            Console.WriteLine("[DEBUG LOG]: " + ViewData["projects"]);
-            return View();
+            //ViewData["projects"] = _dbService.GetAllProjects(amount);
+            return View(_dbService.GetAllProjects(amount));
         }
 
         // GET: Project/id/{id}
@@ -61,7 +60,6 @@ namespace BackTogether.Controllers {
             if (ModelState.IsValid) {
                 _dbService.CreateProject(project);
             }
-            var errors = ModelState.Values.SelectMany(v => v.Errors);
             return RedirectToAction("Index");
         }
     }
