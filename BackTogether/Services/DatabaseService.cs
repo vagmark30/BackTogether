@@ -8,7 +8,7 @@ using System.Data.Common;
 using System.Linq;
 
 namespace BackTogether.Services {
-    public class DatabaseService : IDatabase {
+    public class DatabaseService : DatabaseConnectionManager, IDatabase {
 
         private readonly BackTogetherContext _context;
 

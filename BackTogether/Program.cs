@@ -5,13 +5,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting.Internal;
 
 internal class Program {
-    private static void Main(string[] args) {
+    private static async Task Main(string[] args) {
         var builder = WebApplication.CreateBuilder(args);
+
+        var dbManager = new DatabaseConnectionManager();
+        string connectionstring = await dbManager.GetConnectionStringAsync();
 
         builder.Services.AddDbContext<BackTogetherContext>(options =>
             // WARNING!! This pulls the connection string from secrets.json file which is 
             // stored in local machines and not pushed to the repo for safety
-            options.UseSqlServer(builder.Configuration.GetConnectionString("BackTogetherDatabase"))
+            options.UseSqlServer(builder.Configuration.GetConnectionString(connectionstring))
         );
 
         // Add services to the container.
