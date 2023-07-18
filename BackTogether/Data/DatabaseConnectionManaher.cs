@@ -35,7 +35,7 @@ namespace BackTogether.Data {
             KeyVaultSecret secret = await client.GetSecretAsync(_secretName);
             _password = secret.Value;
 
-            _connectionString = $"Server=tcp:back-together-server.database.windows.net,1433;Initial Catalog=BackTogetherDB;Persist Security Info=False;User ID=karseniou@athtech.gr;Password={_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Authentication="Active Directory Password";";
+            _connectionString = $"Server=tcp:back-together-server.database.windows.net,1433;Initial Catalog=BackTogetherDB;Persist Security Info=False;User ID=karseniou@athtech.gr;Password={_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Authentication=Active Directory Password";
 
             connection = new SqlConnection(_connectionString);
             connection.Open();
