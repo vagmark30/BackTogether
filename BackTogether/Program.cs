@@ -14,18 +14,14 @@ internal class Program {
             options.UseSqlServer(builder.Configuration.GetConnectionString("BackTogetherDatabase"))
         );
 
-        //// This solves this issue: 
-        //// https://stackoverflow.com/questions/73215256/foreign-key-reference-object-being-required-in-entity-framework
-        //builder.Services.AddControllers(options =>
-        //    options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
-
+        // Add services to the container.
+        builder.Services.AddControllersWithViews();
+        // For using and storing session info
+        builder.Services.AddDistributedMemoryCache();
         builder.Services.AddSession(options => {
             // Time out the session after 10 minutes
             options.IdleTimeout = TimeSpan.FromMinutes(10);
         });
-
-        // Add services to the container.
-        builder.Services.AddControllersWithViews();
         builder.Services.AddScoped<ILogin, LoginService>();
         builder.Services.AddScoped<IDatabase, DatabaseService>();
 
@@ -47,28 +43,8 @@ internal class Program {
         
         app.MapControllerRoute(
             name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}");
-
-        //var optionsBuilder = new DbContextOptionsBuilder();
-        //if (HostingEnvironment.IsDevelopment()) {
-        //    optionsBuilder.UseSqlServer(Configuration["Data:dev:DataContext"]);
-        //} else if (HostingEnvironment.IsStaging()) {
-        //    optionsBuilder.UseSqlServer(Configuration["Data:staging:DataContext"]);
-        //} else if (HostingEnvironment.IsProduction()) {
-        //    optionsBuilder.UseSqlServer(Configuration["Data:live:DataContext"]);
-        //}
-
-        //var context = new ApplicationContext(optionsBuilder.Options);
-        //context.Database.EnsureCreated();
-
-        //optionsBuilder = new DbContextOptionsBuilder();
-        //if (HostingEnvironment.IsDevelopment())
-        //    optionsBuilder.UseSqlServer(Configuration["Data:dev:TransientContext"]);
-        //else if (HostingEnvironment.IsStaging())
-        //    optionsBuilder.UseSqlServer(Configuration["Data:staging:TransientContext"]);
-        //else if (HostingEnvironment.IsProduction())
-        //    optionsBuilder.UseSqlServer(Configuration["Data:live:TransientContext"]);
-        //new TransientContext(optionsBuilder.Options).Database.EnsureCreated();
+            pattern: "{controller=Home}/{action=Index}/{id?}"
+        );
 
         app.Run();
     }

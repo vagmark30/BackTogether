@@ -18,21 +18,24 @@ namespace BackTogether.Services {
 
             // Users //
         public int CreateUser(User user) {
+            //user.ImageURL = GetResourceUrlById(user.ImageURLId);
             _context.Add(user);
             return _context.SaveChanges();
         }
 
-                    // Projects //
+        // Projects //
         public int CreateProject(Project project) {
+            project.User = GetUserById(project.Id);
             _context.Add(project);
             return _context.SaveChanges();
         }
+        
 
         /*  
          *  Read 
          */
 
-                    // Users //
+        // Users //
         public User? GetUserById(int? id) {
             var user = _context.Users.Include(u => u.ImageURL).FirstOrDefault(m => m.Id == id);
             if (user == null) {
@@ -40,19 +43,20 @@ namespace BackTogether.Services {
             }
             return user;
         }
+        private ResourceURL? GetResourceUrlById(int id) {
+            throw new NotImplementedException();
+        }
+
         // Get creator of Project
         public User? GetUserByProjectId(int projectId) {
-            var userId = (from n in _context.Projects
-                          where n.Id == projectId
-                          select n.UserId).Single();
-
+            var userId = _context.Projects.Include(n => n.UserId).Where(n => n.Id == projectId).Select(n => n.UserId).Single();
             var user = GetUserById(userId);
             if (user == null) {
                 return null;
             }
-
             return user;
         }
+
         public List<User> GetAllUsers() {
             return _context.Users.Include(u => u.ImageURL).ToList();
         }
@@ -67,9 +71,7 @@ namespace BackTogether.Services {
         }
         // Get all projects created by User
         public List<Project>? GetCreatedProjectsByUserId(int userId) {
-            var projects = (from n in _context.Projects.Include(u => u.User)
-                            where n.UserId == userId
-                            select n).ToList();
+            var projects = _context.Projects.Include(u => u.User).Where(u => u.UserId == userId).ToList();
             if (projects == null) {
                 return null;
             }
