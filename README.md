@@ -31,7 +31,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/its-kos/BackTogether/blob/main/back-together-logo.png">
-    <img src="https://github.com/its-kos/BackTogether/blob/main/back-together-logo.png" alt="Logo" width="1000" height="657">
+    <img src="https://github.com/its-kos/BackTogether/blob/main/back-together-logo.png" alt="Logo">
   </a>
 
   <h3 align="center">Back2Gether</h3>
