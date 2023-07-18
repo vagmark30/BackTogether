@@ -31,10 +31,10 @@
 <br />
 <div align="center">
   <a href="https://github.com/its-kos/BackTogether/blob/main/back-together-logo.png">
-    <img src="https://github.com/its-kos/BackTogether/blob/main/back-together-logo.png" alt="Logo" width="640" height="480">
+    <img src="https://github.com/its-kos/BackTogether/blob/main/back-together-logo.png" alt="Logo">
   </a>
 
-  <h3 align="center">Back2Gether</h3>
+  <h3 align="center">BackToGether</h3>
 
   <p align="center">
     Just another Crowdfunding platform for people with ideas. 
