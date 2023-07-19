@@ -29,7 +29,7 @@ namespace BackTogether.Data {
         }
 
         public async Task<string> GetConnectionStringAsync() { 
-            client = new SecretClient(new Uri($"https://{_keyVaultName}.vault.azure.net/"), new DefaultAzureCredential());
+            client = new SecretClient(new Uri($"https://{_keyVaultName}.vault.azure.net"), new DefaultAzureCredential());
             KeyVaultSecret secret = await client.GetSecretAsync(_secretName);
             _password = secret.Value;
             _connectionString = $"Server=tcp:back-together-server.database.windows.net,1433;Initial Catalog=BackTogetherDB;Persist Security Info=False;User ID=karseniou@athtech.gr;Password={_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Authentication=Active Directory Password";
