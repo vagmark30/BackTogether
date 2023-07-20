@@ -23,7 +23,7 @@
             <div class="mx-auto text-center">
                 <h1 class="mx-auto my-0 text-uppercase" style="font-size: 3rem;">Login</h1>
                 <br>
-                <form asp-controller="User" asp-action="Login" method="post" class="form-signin" style="max-width: 400px;">
+                <form asp-controller="Home" asp-action="Login" method="post" class="form-signin" style="max-width: 400px;">
                     @Html.ValidationSummary(true)
 
                     <div class="form-label-group" style="margin-bottom: 20px;">
@@ -43,8 +43,8 @@
         <div class="container text-center mt-4">
             <p style="color: #30B9F9; margin-bottom:0;">
                 You don't have an account yet?
-                <i class="fa-solid fa-bell fa-shake"></i>
-                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Register" style="display: inline-block; vertical-align: middle;"><span style="display: inline; vertical-align: middle;">Register here</span></a>.
+                <i class="fa-solid fa-bell fa-shake" style="display: inline; vertical-align: middle; "></i>
+                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Register" style="display: inline;"><span style="display: inline; vertical-align: middle;">Register here</span></a>.
             </p>
         </div>
     </header>
