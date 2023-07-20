@@ -1,5 +1,6 @@
 ﻿﻿@{
 	ViewData["Title"] = "Home Page";
+	var loggedIn = (bool?) ViewData["LoggedIn"];
 }
 
 <!DOCTYPE html>
@@ -40,7 +41,13 @@
 					<li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
 					<li class="nav-item"><a class="nav-link" href="#signup">Contact</a></li>
 					<li class="nav-item"><a class="nav-link " asp-area="" asp-controller="Project" asp-action="Index">Projects</a></li>
-					<li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Login"><span>Log In</span></a></li>
+					@{
+						if (loggedIn == null) {
+							<li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Login"><span>Log In</span></a></li>
+						} else if (loggedIn == true){
+							<li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Profile" asp-action="Index"><span>Profile</span></a></li>
+						}
+					}
 					<li class="nav-item">
 						<div class="input-group">
 							<input type="text" class="form-control rounded-pill bg-transparent border-3 text-primary" placeholder="Search" aria-label="Search" style="max-width: 200px;">
