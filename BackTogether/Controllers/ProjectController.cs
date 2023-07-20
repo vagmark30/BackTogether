@@ -24,7 +24,7 @@ namespace BackTogether.Controllers {
         public IActionResult Index(int amount = 100) {
             // Show 100 per page
             // Change this to show more
-            //ViewData["projects"] = _dbService.GetAllProjects(amount);
+            ViewData["projects"] = _dbService.GetAllProjects(amount);
             return View(_dbService.GetAllProjects(amount));
         }
 
@@ -46,8 +46,14 @@ namespace BackTogether.Controllers {
         // * If no -> redirect to login
         [HttpGet]
         public IActionResult Create() {
-            ViewBag.selectCategory = Enum.GetValues(typeof(Categories)).Cast<Categories>();
-            return View();
+			if (HttpContext.Session.GetString("SessionUserId") != null) {
+				//If you get here α user is logged in
+				ViewBag.selectCategory = Enum.GetValues(typeof(Categories)).Cast<Categories>();
+				return View();
+			} else {
+				return RedirectToAction("Login", "Home");
+			}
+			
         }
 
         // POST: Project/Create
@@ -58,7 +64,9 @@ namespace BackTogether.Controllers {
         // See here: https://stackoverflow.com/questions/73734515/binding-complex-entities-inside-complex-entities-to-requests/73737722#73737722
         public IActionResult Create([Bind("Id,Title,Description,Category,UserId,DateCreated,CurrentFunding,FinalGoal")] Project project) {
             if (ModelState.IsValid) {
-                _dbService.CreateProject(project);
+                project.UserId = Int32.Parse(HttpContext.Session.GetString("SessionUserId"));
+                project.DateCreated = DateTime.Now;
+				_dbService.CreateProject(project);
             }
             return RedirectToAction("Index");
         }

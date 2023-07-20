@@ -30,7 +30,6 @@ namespace BackTogether.Services {
             var user = _context.Users.FirstOrDefaultAsync(authUser => 
                 authUser.Username == username && authUser.Password == password
             ).Result;
-
             if (user == null) {
                 return -1;
             }
