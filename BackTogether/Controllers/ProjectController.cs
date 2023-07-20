@@ -46,7 +46,7 @@ namespace BackTogether.Controllers {
         // * If no -> redirect to login
         [HttpGet]
         public IActionResult Create() {
-			if (HttpContext.Session.GetString("SessionUserId") != null) {
+			if (HttpContext.Session.GetInt32("SessionUserId") != null) {
 				//If you get here α user is logged in
 				ViewBag.selectCategory = Enum.GetValues(typeof(Categories)).Cast<Categories>();
 				return View();
@@ -64,7 +64,7 @@ namespace BackTogether.Controllers {
         // See here: https://stackoverflow.com/questions/73734515/binding-complex-entities-inside-complex-entities-to-requests/73737722#73737722
         public IActionResult Create([Bind("Id,Title,Description,Category,UserId,DateCreated,CurrentFunding,FinalGoal")] Project project) {
             if (ModelState.IsValid) {
-                project.UserId = Int32.Parse(HttpContext.Session.GetString("SessionUserId"));
+                project.UserId = HttpContext.Session.GetInt32("SessionUserId");
                 project.DateCreated = DateTime.Now;
 				_dbService.CreateProject(project);
             }

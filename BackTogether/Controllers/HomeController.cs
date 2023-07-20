@@ -23,15 +23,16 @@ namespace BackTogether.Controllers {
         }
 
         public IActionResult Index() {
-            if (HttpContext.Session.GetString("SessionUserId") != null) {
+            if (HttpContext.Session.GetInt32("SessionUserId") != null) {
                 //If you get here α user is logged in
+                ViewData["LoggedIn"] = true;
                 return View();
             }
             return View();
         }
 
         public IActionResult Profile() {
-            if (HttpContext.Session.GetString("SessionUserId") != null) {
+            if (HttpContext.Session.GetInt32("SessionUserId") != null) {
                 //If you get here α user is logged in
                 return RedirectToAction("Index", "Profile");
             }
@@ -42,7 +43,7 @@ namespace BackTogether.Controllers {
         // * If yes -> Redirect to Create
         // * If no -> Redirect to login
         public IActionResult Create() {
-            if (HttpContext.Session.GetString("SessionUserId") != null) {
+            if (HttpContext.Session.GetInt32("SessionUserId") != null) {
                 //If you get here α user is logged in
                 return RedirectToAction("Create", "Project", new { id = HttpContext.Session.GetInt32("SessionUserId") });
             }
@@ -55,9 +56,12 @@ namespace BackTogether.Controllers {
         // * If no -> Redirect to login
         [HttpGet]
         public IActionResult Login() {
-            // Show Login Form
-            return View();
-        }
+			if (HttpContext.Session.GetInt32("SessionUserId") != null) {
+				//If you get here α user is logged in
+				return RedirectToAction("Index");
+			}
+			return View();
+		}
 
         [HttpPost]
         public IActionResult Login(string username, string password) {
@@ -75,7 +79,6 @@ namespace BackTogether.Controllers {
             // Success Login
             // Update Session Info
             HttpContext.Session.SetInt32("SessionUserId", uID);
-            HttpContext.Session.SetInt32("SessionUserAdminRights", 0);
 
             var isAdmin = _loginService.AuthenticateAdmin(uID);
             if (isAdmin) {
@@ -83,7 +86,9 @@ namespace BackTogether.Controllers {
                 HttpContext.Session.SetInt32("SessionUserAdminRights", 1);
                 // Enable Admin functionality
             }
-            return RedirectToAction("Index", "Profile");
+			HttpContext.Session.SetInt32("SessionUserAdminRights", 0);
+
+			return RedirectToAction("Index", "Profile");
         }
 
         // GET: Home/Register
@@ -92,8 +97,7 @@ namespace BackTogether.Controllers {
         // * If no -> Redirect to Login
         [HttpGet]
         public IActionResult Register() {
-            // Show the Register Form
-            if (HttpContext.Session.GetString("SessionUserId") != null) {
+            if (HttpContext.Session.GetInt32("SessionUserId") != null) {
                 //If you get here α user is logged in
                 return RedirectToAction("Index");
             }
