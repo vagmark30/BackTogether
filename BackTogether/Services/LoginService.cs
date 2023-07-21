@@ -13,9 +13,9 @@ namespace BackTogether.Services {
             _context = context;
         }
 
-        public Boolean AuthenticateAdmin(int id) {
+        public async Task<bool> AuthenticateAdmin(int id) {
             try {
-                var user = GetUser(id);
+                var user = await GetUser(id);
                 if (user.HasAdminPrivileges) {
                     return true;
                 } else {
@@ -26,18 +26,18 @@ namespace BackTogether.Services {
             }
         }
 
-        public int AuthenticateUser(string username, string password) {
-            var user = _context.Users.FirstOrDefaultAsync(authUser => 
+        public async Task<int> AuthenticateUser(string username, string password) {
+            var user = await _context.Users.FirstOrDefaultAsync(authUser => 
                 authUser.Username == username && authUser.Password == password
-            ).Result;
+            );
             if (user == null) {
                 return -1;
             }
             return user.Id;
         }
 
-        private User GetUser(int id) {
-            var user = _context.Users.FirstOrDefaultAsync(user => user.Id == id).Result;
+        private async Task<User> GetUser(int id) {
+            var user = await _context.Users.FirstOrDefaultAsync(user => user.Id == id);
             if (user == null) {
                 throw new KeyNotFoundException();
             }

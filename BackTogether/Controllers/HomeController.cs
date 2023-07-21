@@ -23,7 +23,7 @@ namespace BackTogether.Controllers {
         }
 
         public IActionResult Index() {
-            if (HttpContext.Session.GetInt32("SessionUserId") != null) {
+			if (HttpContext.Session.GetInt32("SessionUserId") != null) {
                 //If you get here α user is logged in
                 ViewData["LoggedIn"] = true;
                 return View();
@@ -64,9 +64,9 @@ namespace BackTogether.Controllers {
 		}
 
         [HttpPost]
-        public IActionResult Login(string username, string password) {
+        public async Task<IActionResult> Login(string username, string password) {
 
-            var uID = _loginService.AuthenticateUser(username, password);
+            var uID = await _loginService.AuthenticateUser(username, password);
 
             if (uID == -1) {
                 // Wrong Credentials 
@@ -80,15 +80,15 @@ namespace BackTogether.Controllers {
             // Update Session Info
             HttpContext.Session.SetInt32("SessionUserId", uID);
 
-            var isAdmin = _loginService.AuthenticateAdmin(uID);
+            var isAdmin = await _loginService.AuthenticateAdmin(uID);
             if (isAdmin) {
-                // Update session info
-                HttpContext.Session.SetInt32("SessionUserAdminRights", 1);
-                // Enable Admin functionality
-            }
-			HttpContext.Session.SetInt32("SessionUserAdminRights", 0);
-
-			return RedirectToAction("Index", "Profile");
+				// Update session info
+				// Enable Admin functionality
+				HttpContext.Session.SetInt32("SessionUserAdminRights", 1);    
+            }else {
+				HttpContext.Session.SetInt32("SessionUserAdminRights", 0);
+			}
+			return RedirectToAction("Index");
         }
 
         // GET: Home/Register

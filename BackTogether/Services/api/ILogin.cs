@@ -2,7 +2,7 @@
 
 namespace BackTogether.Services.api {
     public interface ILogin {
-        int AuthenticateUser(string username, string password);
-        bool AuthenticateAdmin(int id);
+        Task<int> AuthenticateUser(string username, string password);
+        Task<bool> AuthenticateAdmin(int id);
     }
 }
