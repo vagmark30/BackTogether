@@ -23,15 +23,20 @@ namespace BackTogether.Controllers {
         // QOL update - Enable sorting functionality
         public IActionResult Index(int amount = 100) {
             // Show 100 per page
-            // Change this to show more
+            // Change this to show more 
             ViewData["projects"] = _dbService.GetAllProjects(amount);
-            return View(_dbService.GetAllProjects(amount));
+			if (HttpContext.Session.GetInt32("SessionUserId") != null) {
+				//If you get here α user is logged in
+				ViewData["LoggedAdmin"] = HttpContext.Session.GetInt32("SessionUserAdminRights") == 1;
+				return View();
+			}
+			return View();
         }
 
         // GET: Project/id/{id}
         [HttpGet]
         public IActionResult Id(int id) {
-            Project? project = _dbService.GetProjectById(id);
+			Project project = _dbService.GetProjectById(id);
             if (project == null) {
                 return View("Error");
             } else {
@@ -70,5 +75,12 @@ namespace BackTogether.Controllers {
             }
             return RedirectToAction("Index");
         }
-    }
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public IActionResult Delete(int id) {
+            _dbService.DeleteProject((int)ViewData["ToDelete"]);
+			return RedirectToAction("Index");
+		}
+	}
 }

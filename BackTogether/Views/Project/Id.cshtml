@@ -1,83 +1,126 @@
-﻿@model IEnumerable<BackTogether.Models.Project>
+﻿@model BackTogether.Models.Project
 
 @{
-    ViewData["Title"] = "Id";
+	ViewData["Title"] = "Id";
 }
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-<h1>Index</h1>
+@section Content {
+	<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+		<div class="container px-1 px-lg-1">
+			<a class="nav-link " asp-area="" asp-controller="Home" asp-action="Index">
+				<img src="/assets/img/monologo.png" alt="Logo" style="max-height: 48px;">
+				<span style="color: #30B9F9; font-family:Jura;">BackToGether</span>
+			</a>
+		</div>
+	</nav>
 
-<p>
-    <a asp-action="Create">View Project with ID: @{ Model.Select(n => n.Id); }</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CurrentFunding)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FinalGoal)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateCreated)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            if (Model == null) {
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+	<!-- Navigation-->
 
-            } else {
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Title)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Category)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.User.Id)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CurrentFunding)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FinalGoal)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DateCreated)
-                        </td>
-                    </tr>
-                }
-            }
-         }
-    </tbody>
-</table>
+	<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+		<div class="container px-1 px-lg-1">
+			<a class="nav-link " asp-area="" asp-controller="Home" asp-action="Index">
+				<img src="/assets/img/monologo.png" alt="Logo" class="img-fluid" style="max-height: 48px;">
+				<span style="color: #30B9F9; font-family:Jura;">BackToGether</span>
+			</a>
+			<button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+				Menu
+				<i class="fas fa-bars"></i>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ms-auto align-items-center">
+					<li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
+					<li class="nav-item"><a class="nav-link" href="#signup">Contact</a></li>
+					<li class="nav-item"><a class="nav-link " asp-area="" asp-controller="Project" asp-action="Index">Projects</a></li>
+					<li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Login"><span>Log In</span></a></li>
+					<li class="nav-item">
+						<div class="input-group">
+							<input type="text" class="form-control rounded-pill bg-transparent border-3 text-primary" placeholder="Search" aria-label="Search" style="max-width: 200px;">
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<header class="masthead1" style="position: relative; width: 100%; max-height:85vh; padding-top: 8rem; padding-bottom:0; background-color: #f2f2f2;">
+		<div class="container d-flex h-80 align-items-center">
+			<div class="mx-auto text-center">
+				<p>
+					<a asp-action="Index">
+						View Project with ID: @Model.Id
+					</a>
+				</p>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>
+								@Html.DisplayNameFor(model => model.Title)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Description)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Category)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.User)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.CurrentFunding)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.FinalGoal)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.DateCreated)
+							</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						@{
+							if (@Model == null) {
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+
+							} else {
+								<tr>
+									<td>
+										@Html.DisplayFor(modelItem => Model.Title)
+									</td>
+									<td>
+										@Html.DisplayFor(modelItem => Model.Description)
+									</td>
+									<td>
+										@Html.DisplayFor(modelItem => Model.Category)
+									</td>
+									<td>
+										@Html.DisplayFor(modelItem => Model.User.Id)
+									</td>
+									<td>
+										@Html.DisplayFor(modelItem => Model.CurrentFunding)
+									</td>
+									<td>
+										@Html.DisplayFor(modelItem => Model.FinalGoal)
+									</td>
+									<td>
+										@Html.DisplayFor(modelItem => Model.DateCreated)
+									</td>
+								</tr>
+							}
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</header>
+}

@@ -1,65 +1,105 @@
-﻿@model IEnumerable<BackTogether.Models.User>
+﻿@model BackTogether.Models.User
 
 @{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FullName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Username)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Password)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageURL)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HasAdminPrivileges)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Username)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageURL.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HasAdminPrivileges)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+@section Content {
+	<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+		<div class="container px-1 px-lg-1">
+			<a class="nav-link " asp-area="" asp-controller="Home" asp-action="Index">
+				<img src="/assets/img/monologo.png" alt="Logo" style="max-height: 48px;">
+				<span style="color: #30B9F9; font-family:Jura;">BackToGether</span>
+			</a>
+		</div>
+	</nav>
+
+	<!-- Navigation-->
+
+	<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+		<div class="container px-1 px-lg-1">
+			<a class="nav-link " asp-area="" asp-controller="Home" asp-action="Index">
+				<img src="/assets/img/monologo.png" alt="Logo" class="img-fluid" style="max-height: 48px;">
+				<span style="color: #30B9F9; font-family:Jura;">BackToGether</span>
+			</a>
+			<button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+				Menu
+				<i class="fas fa-bars"></i>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ms-auto align-items-center">
+					<li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
+					<li class="nav-item"><a class="nav-link" href="#signup">Contact</a></li>
+					<li class="nav-item"><a class="nav-link " asp-area="" asp-controller="Project" asp-action="Index">Projects</a></li>
+					<li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Login"><span>Log In</span></a></li>
+				<li class="nav-item">
+					<div class="input-group">
+						<input type="text" class="form-control rounded-pill bg-transparent border-3 text-primary" placeholder="Search" aria-label="Search" style="max-width: 200px;">
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+
+<header class="masthead1" style="position: relative; width: 100%; max-height:85vh; padding-top: 8rem; padding-bottom:0; background-color: #f2f2f2;">
+	<div class="container d-flex h-80 align-items-center">
+		<div class="mx-auto text-center">
+			<h1 class="mx-auto my-0 text-uppercase" style="font-size: 3rem;">Profile</h1>
+			<br>
+
+		</div>
+	</div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					@Html.DisplayNameFor(model => model.FullName)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Username)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Email)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.HasAdminPrivileges)
+				</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			if (@Model == null) {
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+
+			} else {
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => Model.FullName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => Model.Username)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => Model.Email)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => Model.HasAdminPrivileges)
+				</td>
+			</tr>
+			}
+		</tbody>
+	</table>
+</header>
 }
-    </tbody>
-</table>

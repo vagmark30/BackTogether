@@ -26,10 +26,10 @@ namespace BackTogether.Controllers {
         // * If yes -> Show profile
         // * If no -> redirect to login
         [HttpGet]
-        public IActionResult Index(int id) {
-            // Show profile page
-            // Get all relevant data here using the Service
-            return View(_dbService.GetUserById(id));
+        public IActionResult Index() {
+			// Show profile page
+			// Get all relevant data here using the Service
+			return View(_dbService.GetUserById(HttpContext.Session.GetInt32("SessionUserId")));
         }
 
         [HttpGet]
